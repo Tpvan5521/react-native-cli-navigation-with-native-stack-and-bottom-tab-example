@@ -4,29 +4,29 @@ import { View } from 'react-native';
 import List from '../components/List/List';
 import ComponentLoading from '../components/Loading/ComponentLoading';
 
-import { getPosts } from '../http/posts';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPostsRequest } from '../store/actions/postAction';
+import ComponentError from '../components/404/ComponentError';
 
 export default function HomeScreen({navigation}) {
-  const [list, setList] = useState([])
-  const [loadingList, setLoadingList] = useState(true)
+  const { posts, pending, error } = useSelector(state => state.posts)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    (async() => {
-      const posts = await getPosts()
-      if(posts) {
-        setList(posts)
-        setLoadingList(false)
-      }
-    })()
+    dispatch(fetchPostsRequest())
   }, [])
 
-  if (loadingList) {
+  if (pending) {
     return <ComponentLoading />
+  } else {
+    if (error) {
+      return <ComponentError />
+    }
   }
 
   return (
     <View>
-      <List data={list} navigation={navigation} />
+      <List data={posts} navigation={navigation} />
     </View>
   );
 }
