@@ -7,6 +7,7 @@ import { getPostBySlug } from '../http/posts';
 
 export default function DetailsScreen({route}) {
   const [details, setDetails] = useState({})
+  const [isAuth, setIsAuth] = useState(false)
 
   useEffect(() => {
     (async() => {

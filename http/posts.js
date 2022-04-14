@@ -15,7 +15,8 @@ export async function getPosts() {
     await customAxios
         .get(`${URL}/posts`, {
             headers: {
-                "Content-Type": "application/json" 
+                "Content-Type": "application/json",
+                "Authorization": ""
             }
         })
         .then(res => res.data)
