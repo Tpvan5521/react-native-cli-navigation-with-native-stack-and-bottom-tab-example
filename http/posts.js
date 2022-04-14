@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://95a6-113-161-93-146.ap.ngrok.io/api"
+const URL = "https://8036-113-161-93-146.ap.ngrok.io/api"
 
 const customAxios = axios.create({
     baseURL: URL,
@@ -15,8 +15,7 @@ export async function getPosts() {
     await customAxios
         .get(`${URL}/posts`, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": ""
+                "Content-Type": "application/json"
             }
         })
         .then(res => res.data)

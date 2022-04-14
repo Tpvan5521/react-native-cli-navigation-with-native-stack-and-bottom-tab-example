@@ -7,7 +7,7 @@ import {
 import { postTypes } from "../actionTypes/actionType";
 
 const getPosts = () =>
-  axios.get("https://95a6-113-161-93-146.ap.ngrok.io/api/posts");
+  axios.get("https://8036-113-161-93-146.ap.ngrok.io/api/posts");
 
 function* fetchPostsSaga() {
   try {
