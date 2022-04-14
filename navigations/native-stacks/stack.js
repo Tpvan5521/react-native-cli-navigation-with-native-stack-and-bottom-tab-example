@@ -10,8 +10,8 @@ const Stack = createNativeStackNavigator();
 export function MainStack() {
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Home " component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Details" component={DetailsScreen} />
     </Stack.Navigator>
   );
 }
@@ -19,7 +19,7 @@ export function MainStack() {
 export function SettingStack() {
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Setting " component={SettingScreen} />
+      <Stack.Screen name="Setting" component={SettingScreen} />
     </Stack.Navigator>
   );
 }

@@ -1,17 +1,34 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
+import { useEffect, useState } from 'react'
+import { View } from 'react-native';
+import List from '../components/List/List';
+import ComponentLoading from '../components/Loading/ComponentLoading';
+
+import { getPosts } from '../http/posts';
 
 export default function HomeScreen({navigation}) {
+  const [list, setList] = useState([])
+  const [loadingList, setLoadingList] = useState(true)
+
+  useEffect(() => {
+    (async() => {
+      const posts = await getPosts()
+      if(posts) {
+        setList(posts)
+        setLoadingList(false)
+      }
+    })()
+  }, [])
+
+  if (loadingList) {
+    return <ComponentLoading />
+  }
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="To Details"
-        color="#f194ff"
-        onPress={() => navigation.navigate('Details')}
-      />
+    <View>
+      <List data={list} navigation={navigation} />
     </View>
   );
 }
