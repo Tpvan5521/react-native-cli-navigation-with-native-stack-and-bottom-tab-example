@@ -3,25 +3,32 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import { useEffect, useState } from 'react';
-import { getPostBySlug } from '../http/posts';
+import ComponentLoading from '../components/Loading/ComponentLoading';
+import ComponentError from '../components/404/ComponentError';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPostRequest } from '../store/actions/postAction';
 
 export default function DetailsScreen({route}) {
-  const [details, setDetails] = useState({})
+  const { post, pending, error } = useSelector(state => state.posts)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    (async() => {
-      const slug = await route.params.slug
-      const post = await getPostBySlug(slug)
-      if(post) {
-        setDetails(post)
-      }
-    })()
+    dispatch(fetchPostRequest(route.params.slug))
   }, [])
 
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Text>{details.title ? details.title : 'null'}</Text>
-    </View>
-  );
+  if (pending) {
+    return <ComponentLoading />
+  } else {
+    if (error) {
+      return <ComponentError />
+    } else {
+      return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Details Screen</Text>
+          <Text>{post ? post.title : 'null'}</Text>
+        </View>
+      );
+    }
+  }
+
 }

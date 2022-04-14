@@ -2,7 +2,9 @@ import axios from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
   fetchPostsFailure,
-  fetchPostsSuccess
+  fetchPostsSuccess,
+  fetchPostFailure,
+  fetchPostSuccess
 } from "../actions/postAction";
 import { postTypes } from "../actionTypes/actionType";
 
@@ -26,8 +28,30 @@ function* fetchPostsSaga() {
   }
 }
 
-function* postSaga() {
-  yield all([takeLatest(postTypes.FETCH_POST_REQUEST, fetchPostsSaga)]);
+const getPost = (slug) =>
+  axios.get(`https://8036-113-161-93-146.ap.ngrok.io/api/posts/${slug}`);
+
+function* fetchPostSaga(action) {
+  try {
+    const response = yield call(getPost, action.payload);
+    yield put(
+      fetchPostSuccess({
+        post: response.data.data
+      })
+    );
+  } catch (e) {
+    yield put(
+      fetchPostFailure({
+        error: e.message
+      })
+    );
+  }
 }
 
-export default postSaga;
+export function* postsSaga() {
+  yield all([takeLatest(postTypes.FETCH_POSTS_REQUEST, fetchPostsSaga)]);
+}
+
+export function* postSaga() {
+  yield all([takeLatest(postTypes.FETCH_POST_REQUEST, fetchPostSaga)]);
+}
