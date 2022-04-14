@@ -1,14 +1,13 @@
-import { createStore, combineReducers } from 'redux';
-import authReducer from './reducers/authReducer';
-import postReducer from './reducers/postReducer';
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
+import logger from "redux-logger";
+import rootReducer from "./reducers/rootReducer";
+import { rootSaga } from "./sagas/rootSaga";
 
-const rootReducer = combineReducers({ 
-    authReducer: authReducer,
-    postReducer: postReducer 
-});
+const sagaMiddleware = createSagaMiddleware();
 
-const configureStore = () => {
-    return createStore(rootReducer);
-}
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger));
 
-export default configureStore;
+sagaMiddleware.run(rootSaga);
+
+export default store;

@@ -1,15 +1,35 @@
-import { GET_ALL_POSTS, GET_POST, COMMENT_ON_POST, CREATE_POST } from './actionType'
+import { postTypes } from "../actionTypes/actionType"
 
-let initialPostState = {
-    posts: [],
-    post: {}
-}
+const initialState = {
+  pending: false,
+  posts: [],
+  error: null
+};
 
-const postReducer = (state = initialPostState, action) => {
-    switch (action.type) {
-        case GET_ALL_POSTS:
-            return {}
-    }
-}
-
-export default postReducer
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case postTypes.FETCH_POST_REQUEST:
+      return {
+        ...state,
+        pending: true
+      };
+    case postTypes.FETCH_POST_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        posts: action.payload.posts,
+        error: null
+      };
+    case postTypes.FETCH_POST_FAILURE:
+      return {
+        ...state,
+        pending: false,
+        posts: [],
+        error: action.payload.error
+      };
+    default:
+      return {
+        ...state
+      };
+  }
+};

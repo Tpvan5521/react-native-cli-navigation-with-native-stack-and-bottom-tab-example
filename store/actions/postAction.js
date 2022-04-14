@@ -1,32 +1,19 @@
-import { GET_ALL_POSTS, GET_POST, COMMENT_ON_POST, CREATE_POST } from './actionType'
+import { postTypes } from "../actionTypes/actionType";
 
-export function getAllPostsAction() {
-    return {
-        type: GET_ALL_POSTS
-    }
-}
+export const fetchPostsRequest = () => ({
+  type: postTypes.FETCH_POST_REQUEST
+});
 
-export function getPostAction(postSlug) {
-    return {
-        type: GET_POST,
-        payload: postSlug
-    }
-}
+export const fetchPostsSuccess = (
+  payload
+) => ({
+  type: postTypes.FETCH_POST_SUCCESS,
+  payload
+});
 
-export function createPostAction(post) {
-    return {
-        type: CREATE_POST,
-        payload: post
-    }
-}
-
-export function commentOnPostAction(comment, post, user) {
-    return {
-        type: COMMENT_ON_POST,
-        payload: {
-            comment,
-            post,
-            payload
-        }
-    }
-}
+export const fetchPostsFailure = (
+  payload
+) => ({
+  type: postTypes.FETCH_POST_FAILURE,
+  payload
+});
