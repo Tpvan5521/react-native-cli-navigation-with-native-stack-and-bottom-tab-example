@@ -38,6 +38,7 @@ function LoginScreen({ navigation, setRedirectToRegister }) {
         onChangeText={onChangeText('password')}
         value={input.password}
         placeholder="password"
+        secureTextEntry={true}
       />
       <Button
         title='Login'
@@ -92,6 +93,7 @@ function RegisterScreen({ navigation, setRedirectToRegister }) {
         onChangeText={onChangeText('password')}
         value={input.password}
         placeholder="password"
+        secureTextEntry={true}
       />
       <Button
         title='Register'
