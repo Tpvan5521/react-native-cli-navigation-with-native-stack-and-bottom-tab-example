@@ -9,7 +9,7 @@ import {
 import { postTypes } from "../actionTypes/actionType";
 
 const getPosts = () =>
-  axios.get("https://8036-113-161-93-146.ap.ngrok.io/api/posts");
+  axios.get("https://4f14-113-161-93-146.ap.ngrok.io/api/posts");
 
 function* fetchPostsSaga() {
   try {
@@ -29,7 +29,7 @@ function* fetchPostsSaga() {
 }
 
 const getPost = (slug) =>
-  axios.get(`https://8036-113-161-93-146.ap.ngrok.io/api/posts/${slug}`);
+  axios.get(`https://4f14-113-161-93-146.ap.ngrok.io/api/posts/${slug}`);
 
 function* fetchPostSaga(action) {
   try {

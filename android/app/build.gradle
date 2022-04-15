@@ -1,5 +1,11 @@
 apply plugin: "com.android.application"
 
+project.ext.envConfigFiles = [
+   dev: ".env.dev",
+   prod: ".env.prod"
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 import com.android.build.OutputFile
 
 /**
@@ -162,6 +168,24 @@ android {
         }
     }
 
+    // flavorDimensions "default"
+    flavorDimensions.add("environment")
+
+    productFlavors {
+        dev {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.client.dev'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.client"
+        }
+        prod {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId 'com.client'
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.client"
+        }
+    }
+
     if (isNewArchitectureEnabled()) {
         // We configure the NDK build only if you decide to opt-in for the New Architecture.
         externalNativeBuild {
@@ -251,7 +275,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-
+    implementation project(':react-native-config')
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
