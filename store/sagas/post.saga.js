@@ -6,7 +6,7 @@ import {
   fetchPostFailure,
   fetchPostSuccess
 } from "../actions/postAction";
-import { postTypes } from "../actionTypes/actionType";
+import { postTypes } from "../actionTypes";
 
 const getPosts = () =>
   axios.get("https://4f14-113-161-93-146.ap.ngrok.io/api/posts");

@@ -1,4 +1,4 @@
-import { postTypes } from "../actionTypes/actionType";
+import { postTypes } from "../actionTypes";
 
 export const fetchPostsRequest = () => ({
   type: postTypes.FETCH_POSTS_REQUEST

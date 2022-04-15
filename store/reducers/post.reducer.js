@@ -1,4 +1,4 @@
-import { postTypes } from "../actionTypes/actionType"
+import { postTypes } from "../actionTypes"
 
 const initialState = {
   pending: false,
