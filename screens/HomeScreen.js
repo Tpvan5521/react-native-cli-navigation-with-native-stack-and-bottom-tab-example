@@ -7,18 +7,13 @@ import ComponentError from '../components/404/ComponentError';
 import Config from 'react-native-config'
 
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPostsRequest } from '../store/actions/postAction';
+import { fetchPostsRequest } from '../store/actions/post.action';
 
 export default function HomeScreen({navigation}) {
   const { posts, pending, error } = useSelector(state => state.posts)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (__DEV__) {
-      console.log('Development');
-    } else {
-      console.log('Production');
-    }
     dispatch(fetchPostsRequest())
   }, [])
 

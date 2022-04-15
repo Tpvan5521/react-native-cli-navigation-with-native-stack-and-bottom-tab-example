@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import ComponentLoading from '../components/Loading/ComponentLoading';
 import ComponentError from '../components/404/ComponentError';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPostRequest } from '../store/actions/postAction';
+import { fetchPostRequest } from '../store/actions/post.action';
 
 export default function DetailsScreen({route}) {
   const { post, pending, error } = useSelector(state => state.posts)
